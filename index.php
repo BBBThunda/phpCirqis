@@ -4,6 +4,6 @@ $t = new MyView();
 $t->friends = array(
     'Rachel', 'Monica', 'Phoebe', 'Chandler', 'Joey', 'Ross'
 );
-$t->render('index.phtml');
-$t->render('index.xml');
+$templates = array('index.phtml','index.xml');
+$t->render('skeleton.php', $templates);
 ?>
