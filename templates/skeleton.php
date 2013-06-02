@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title></title>
+        <title><? echo $t->pageTitle; ?></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -22,8 +22,45 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+		<? // FB LOGIN + NAVIGATION ?>
+		<div id="fb-root"></div>
+		<script>
+		  // Additional JS functions here
+		  window.fbAsyncInit = function() {
+		    FB.init({
+		      appId      : 'YOUR_APP_ID', // App ID
+		      channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+		      status     : true, // check login status
+		      cookie     : true, // enable cookies to allow the server to access the session
+		      xfbml      : true  // parse XFBML
+		    });
+		
+		    // Additional init code here
+		
+		  };
+		
+		  // Load the SDK asynchronously
+		  (function(d){
+		     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+		     if (d.getElementById(id)) {return;}
+		     js = d.createElement('script'); js.id = id; js.async = true;
+		     js.src = "//connect.facebook.net/en_US/all.js";
+		     ref.parentNode.insertBefore(js, ref);
+		   }(document));
+		</script>		
+		
+		
+        <!-- Call your site or application content here -->
+        <?
+          foreach($template_files as $template_file) {
+	          if (file_exists($this->template_dir.$template_file)) {
+	            include $this->template_dir.$template_file;
+	        	} else {
+	            throw new Exception('no template file ' . $template_file . ' present in directory ' . $this->template_dir);
+	        	}
+		  }
+        ?>
+        
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.0.min.js"><\/script>')</script>
